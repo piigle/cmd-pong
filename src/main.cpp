@@ -10,8 +10,9 @@
 int main() {
     Paddle player1("Player1", 3, 10, 19, 'W', 'S', 100);
     Paddle player2("Player2", 199 - 4, 10, 19, 'R', 'F', 100);
+    Ball ball(100, 24, -1, -1);
     Window window;
-    Game game(window, player1, player2);
+    Game game(window, player1, player2, ball);
 
 
     game.run();

@@ -128,6 +128,30 @@ pong/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pong.dir\build.make CMakeFiles/pong.dir/build
 .PHONY : pong/fast
 
+src/ball.obj: src/ball.cpp.obj
+.PHONY : src/ball.obj
+
+# target to build an object file
+src/ball.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pong.dir\build.make CMakeFiles/pong.dir/src/ball.cpp.obj
+.PHONY : src/ball.cpp.obj
+
+src/ball.i: src/ball.cpp.i
+.PHONY : src/ball.i
+
+# target to preprocess a source file
+src/ball.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pong.dir\build.make CMakeFiles/pong.dir/src/ball.cpp.i
+.PHONY : src/ball.cpp.i
+
+src/ball.s: src/ball.cpp.s
+.PHONY : src/ball.s
+
+# target to generate assembly for a file
+src/ball.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pong.dir\build.make CMakeFiles/pong.dir/src/ball.cpp.s
+.PHONY : src/ball.cpp.s
+
 src/console_window.obj: src/console_window.cpp.obj
 .PHONY : src/console_window.obj
 
@@ -257,6 +281,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... pong
+	@echo ... src/ball.obj
+	@echo ... src/ball.i
+	@echo ... src/ball.s
 	@echo ... src/console_window.obj
 	@echo ... src/console_window.i
 	@echo ... src/console_window.s

@@ -33,13 +33,12 @@ void Game::drawObjects() {
 
 void Game::checkInput() {
     if (ballTimer.ended()) {
-        unsigned int cooldown = 200;
         ball.xPos += -2;
         ball.yPos += -1;
         
         drawObjects();
 
-        ballTimer.setTimer(cooldown);
+        ballTimer.setTimer((unsigned int)(200));
     }
 
     if (player1.moveTimer.ended()) { 
@@ -76,6 +75,9 @@ void Game::checkInput() {
 
 void Game::run() {
     drawObjects();
+    ballTimer.setTimer((unsigned int)(200));
+    player1.moveTimer.setTimer(player1.moveCooldown);
+    player2.moveTimer.setTimer(player2.moveCooldown);
     while (true) {
         // moveBall();
         checkInput();

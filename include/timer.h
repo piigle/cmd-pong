@@ -7,5 +7,5 @@ private:
     unsigned int waitTime = 0;
 public:
     void setTimer(unsigned int time);
-    bool endTimer();
+    bool ended();
 };

@@ -6,7 +6,7 @@ void Timer::setTimer(unsigned int time) {
     waitTime = time;
 }
 
-bool Timer::endTimer() {
+bool Timer::ended() {
     if (GetTickCount() > setTime + waitTime) {
         return true;
     } else {

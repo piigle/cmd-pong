@@ -8,10 +8,10 @@ public:
     std::vector<std::string> contents;
     const char* frameFile;
 
-    Window(const char* frameFile);
-    void displayWindow();
+    Window();
+    void draw();
     void setPixel(int x, int y, char pixelType);
-    void reset();
     void clear();
+    void loadFromFile(const char* filePath);
 };
     

@@ -1,9 +1,14 @@
 #pragma once
+#include <string>
+
 #include "console_window.h"
 #include "timer.h"
 
 class Paddle {
 public:
+
+    const char* name;
+
     // Controls
     char upKey;
     char downKey;
@@ -16,7 +21,7 @@ public:
     int yBottom;
     int length;
 
-    Paddle(int xValue, int yTop, int yBottom, char upKey, char downKey, unsigned int moveCooldown);
+    Paddle(const char* name, int xValue, int yTop, int yBottom, char upKey, char downKey, unsigned int moveCooldown);
     void move();
     void draw();
 };

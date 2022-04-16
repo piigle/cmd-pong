@@ -2,10 +2,12 @@
 #include "console_window.h"
 
 #include <iostream>
+#include <string>
 #include <Windows.h>
 
 
-Paddle::Paddle(int xValue, int yTop, int yBottom, char upKey, char downKey, unsigned int moveCooldown) {
+Paddle::Paddle(const char* name, int xValue, int yTop, int yBottom, char upKey, char downKey, unsigned int moveCooldown) {
+    this->name = name;
     this->xValue = xValue;
     this->yTop = yTop;
     this->yBottom = yBottom;
@@ -23,12 +25,12 @@ void Paddle::move() {
         if (upState && (yTop > 0)) {
             yTop -= 1;
             yBottom -= 1;
-            std::cout << yTop << ", " << yBottom << std::endl;
+            std::cout << name << ": " << yTop << ", " << yBottom << std::endl;
         }
         if (downState && (yBottom < 49)) {
             yTop += 1;
             yBottom += 1;
-            std::cout << yTop << ", " << yBottom << std::endl;
+            std::cout << name << ": " << yTop << ", " << yBottom << std::endl;
         }
 
         moveTimer.setTimer(moveCooldown);

@@ -33,10 +33,12 @@ void Game::checkInput() {
         if (upState && (player1.yTop > 0)) {
             player1.yTop -= 1;
             player1.yBottom -= 1;
+            drawObjects();
         }
         if (downState && (player1.yBottom < 49)) {
             player1.yTop += 1;
             player1.yBottom += 1;
+            drawObjects();
         }
         player1.moveTimer.setTimer(player1.moveCooldown);
     }
@@ -46,18 +48,20 @@ void Game::checkInput() {
         if (upState && (player2.yTop > 0)) {
             player2.yTop -= 1;
             player2.yBottom -= 1;
+            drawObjects();
         }
         if (downState && (player2.yBottom < 49)) {
             player2.yTop += 1;
             player2.yBottom += 1;
+            drawObjects();
         }
         player2.moveTimer.setTimer(player2.moveCooldown);
     }
 }
 
 void Game::run() {
+    drawObjects();
     while (true) {
         checkInput();
-        drawObjects();
     }
 }

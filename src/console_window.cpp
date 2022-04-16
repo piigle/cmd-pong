@@ -7,29 +7,42 @@
 #include "console_window.h"
 #include <Windows.h>
 
-std::vector<std::string> Window::loadBlankWindow() {
-    std::vector<std::string> window;
-    std::string windowLine;
-    std::ifstream windowFile("frames/window.txt");
+Window::Window(const char* frameFile) {
+    std::vector<std::string> contents;
+
+    std::string contentLine;
+    std::ifstream contentsFile(frameFile);
     
-    while (std::getline(windowFile, windowLine)) {
-        window.push_back(windowLine);
+    while (std::getline(contentsFile, contentLine)) {
+        contents.push_back(contentLine);
     }
-    windowFile.close();
-    return window;
+    contentsFile.close();
+    this->contents = contents;
+    this->frameFile = frameFile;
 }
 
-void Window::displayWindow(std::vector<std::string> window) {
-    for (int i = 0; i < window.size(); i++) {
-        std::cout << window[i] << std::endl;
+void Window::displayWindow() {
+    for (int i = 0; i < contents.size(); i++) {
+        std::cout << contents[i] << std::endl;
     }
 }
 
-void Window::setPixel(std::vector<std::string> &window, int x, int y, char pixelType) { // (0, 0) is at the top left corner
-    window[y+1][x+2] = pixelType;
+void Window::setPixel(int x, int y, char pixelType) { // (0, 0) is at the top left corner
+    contents[y+1][x+2] = pixelType;
 }
 
 void Window::reset() {
+    std::string contentLine;
+    std::ifstream contentsFile(frameFile);
+
+    contents.clear();
+    while (std::getline(contentsFile, contentLine)) {
+        contents.push_back(contentLine);
+    }
+    contentsFile.close();
+}
+
+void Window::clear() {
     COORD pos = {0, 0};
     HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleCursorPosition(output, pos);

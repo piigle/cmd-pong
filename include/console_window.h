@@ -1,11 +1,17 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <Windows.h>
 
-namespace Window {
-    std::vector<std::string> loadBlankWindow();
-    void displayWindow(std::vector<std::string> window);
-    void setPixel(std::vector<std::string> &window, int x, int y, char pixelType);
+class Window {
+public:
+    std::vector<std::string> contents;
+    const char* frameFile;
+
+    Window(const char* frameFile);
+    void displayWindow();
+    void setPixel(int x, int y, char pixelType);
     void reset();
-}
+    void clear();
+};
     

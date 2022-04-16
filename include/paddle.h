@@ -22,6 +22,6 @@ public:
     int length;
 
     Paddle(const char* name, int xValue, int yTop, int yBottom, char upKey, char downKey, unsigned int moveCooldown);
-    void move();
-    void draw();
+    void move(Window window);
+    void draw(Window window);
 };

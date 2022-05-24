@@ -6,11 +6,13 @@
 
 class Paddle {
 public:
-    const char* name;
+    int score = 0;
 
     // Controls
-    char upKey;
-    char downKey;
+    char up_key;
+    char down_key;
+
+    // Timing
     Timer moveTimer;
     unsigned int moveCooldown;
 
@@ -19,6 +21,8 @@ public:
     int yTop;
     int yBottom;
 
-    Paddle(const char* name, int xValue, int yTop, int yBottom, char upKey, char downKey, unsigned int moveCooldown);
+    Paddle(int xValue, int yTop, int yBottom, char upKey, char downKey, unsigned int moveCooldown);
     Paddle();
+
+    void move();
 };

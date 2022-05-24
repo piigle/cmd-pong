@@ -7,12 +7,16 @@
 
 class Ball {
 public:
-    int xPos;
-    int yPos;
+    int x_pos;
+    int y_pos;
 
-    int xChange;
-    int yChange;
+    int x_change;
+    int y_change;
+    Timer ballTimer;
 
-    Ball(int x, int y, int dx, int dy);
     Ball();
+    Ball(int x, int y, int dx, int dy);
+    
+    void move();
+    void reset();
 };

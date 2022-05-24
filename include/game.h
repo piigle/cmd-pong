@@ -18,6 +18,8 @@ public:
 
     void drawObjects();
 
+    int ball_paddle_collision();
+
     void setup();
     void run();
 };

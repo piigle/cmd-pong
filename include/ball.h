@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-
 #include "console_window.h"
 #include "timer.h"
 
@@ -17,6 +16,6 @@ public:
     Ball();
     Ball(int x, int y, int dx, int dy);
     
-    void move();
+    int move();
     void reset();
 };

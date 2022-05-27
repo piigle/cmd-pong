@@ -37,20 +37,44 @@ void Game::drawObjects() {
     window.clear();
 }
 
-int Game::ball_paddle_collision() {
-    // Corner Collisions and Middle Collisions
-    // Paddle 1
-    for (int i = 0; i < (player1.yBottom - player1.yTop) + 1; i++) {
-        if (ball.x_pos <= player1.xValue && ball.y_pos <= player1.yTop + i) {
-            return 1;
+// Move the ball as well as respond to collisions in the game
+void Game::ball_move() {
+    if (ball.ballTimer.ended()) {
+        bool player1_ball_collision = (ball.x_pos < player1.xValue + 1) && ((ball.y_pos < player1.yBottom + 1) && (ball.y_pos > player1.yTop - 1)); // Ball paddle collision with the left paddle
+        bool player2_ball_collision = (ball.x_pos > player2.xValue - 2) && ((ball.y_pos < player2.yBottom + 1) && (ball.y_pos > player2.yTop - 1)); // Ball paddle collision with the right paddle
+        bool paddle_collision = player1_ball_collision || player2_ball_collision;
+
+        bool arena_top_bottom_collision = ball.y_pos < 1 || ball.y_pos > 48; // Top and Bottom Collision
+        bool arena_left_collision = ball.x_pos <= 0; // Left side collision
+        bool arena_right_collision = ball.x_pos >= 198; // Right side collision
+
+        if (paddle_collision) {
+            ball.x_change *= -1;    
+            paddle_collision = false;
         }
-    }
-    for (int i = 0; i < (player2.yBottom - player2.yTop) + 1; i++) {
-        if (ball.x_pos >= player2.xValue && ball.y_pos <= player2.yTop + i) {
-            return 1;
+
+        // Arena Top
+        if (arena_top_bottom_collision) {
+            ball.y_change *= -1;
+            arena_top_bottom_collision = false;
         }
+
+        // Arena Sides
+        if (arena_left_collision) {
+            player2.score += 1;
+            ball.reset();
+        } else if (arena_right_collision) {
+            player1.score += 1;
+            ball.reset();
+        }
+
+        if (!(arena_top_bottom_collision || arena_left_collision || arena_right_collision || paddle_collision)) {
+            ball.x_pos += ball.x_change;
+            ball.y_pos += ball.y_change;
+        }
+        ball.ballTimer.setTimer(50);
     }
-    return 0;
+    
 }
 
 // Reset the game with the ball in the middle and players back to their default location.
@@ -63,17 +87,7 @@ void Game::run() {
     while (true) {
         player1.move();
         player2.move();
-        int ball_paddle = ball_paddle_collision();
-        if (ball_paddle) {
-            ball.x_change *= -1;
-            ball.y_change *= -1;
-        }
-        int ball_collision = ball.move();
-        if(ball_collision == 1) {
-            player1.score += 1;
-        } else if (ball_collision == 2) {
-            player2.score += 1;
-        }
+        ball_move();
         drawObjects();
     }
 }

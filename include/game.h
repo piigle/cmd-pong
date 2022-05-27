@@ -13,12 +13,11 @@ public:
     Paddle player2;
     Ball ball;
     
-
     Game(Window window, Paddle player1, Paddle player2, Ball ball);
 
     void drawObjects();
 
-    int ball_paddle_collision();
+    void ball_move();
 
     void setup();
     void run();

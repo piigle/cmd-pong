@@ -16,6 +16,5 @@ public:
     Ball();
     Ball(int x, int y, int dx, int dy);
     
-    int move();
     void reset();
 };

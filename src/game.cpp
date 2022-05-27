@@ -40,15 +40,31 @@ void Game::drawObjects() {
 // Move the ball as well as respond to collisions in the game
 void Game::ball_move() {
     if (ball.ballTimer.ended()) {
-        bool player1_ball_collision = (ball.x_pos < player1.xValue + 1) && ((ball.y_pos < player1.yBottom + 1) && (ball.y_pos > player1.yTop - 1)); // Ball paddle collision with the left paddle
-        bool player2_ball_collision = (ball.x_pos > player2.xValue - 2) && ((ball.y_pos < player2.yBottom + 1) && (ball.y_pos > player2.yTop - 1)); // Ball paddle collision with the right paddle
+        // Detect if the ball hits the middle of the paddle
+        bool player1_ball_middle_collision = (ball.x_pos < player1.xValue + 1) && ((ball.y_pos > player1.yTop + 3) && (ball.y_pos < player1.yTop + 6));
+        bool player2_ball_middle_collision = (ball.x_pos > player2.xValue - 2) && ((ball.y_pos > player2.yTop + 3) && (ball.y_pos < player2.yTop + 6));
+        bool middle_collision = player1_ball_middle_collision || player2_ball_middle_collision;
+        
+        // Detect if ball hits the paddle
+        bool player1_ball_collision = (ball.x_pos < player1.xValue + 1) && ((ball.y_pos < player1.yBottom + 1) && (ball.y_pos > player1.yTop - 1));
+        bool player2_ball_collision = (ball.x_pos > player2.xValue - 2) && ((ball.y_pos < player2.yBottom + 1) && (ball.y_pos > player2.yTop - 1));
         bool paddle_collision = player1_ball_collision || player2_ball_collision;
 
+        // Detect if ball hits a side of the arena
         bool arena_top_bottom_collision = ball.y_pos < 1 || ball.y_pos > 48; // Top and Bottom Collision
         bool arena_left_collision = ball.x_pos <= 0; // Left side collision
         bool arena_right_collision = ball.x_pos >= 198; // Right side collision
 
-        if (paddle_collision) {
+        if (middle_collision) {
+            ball.y_change = 0;
+            ball.x_change *= -1.5;
+            middle_collision = false;
+            paddle_collision = false;
+        } else if (paddle_collision) {
+            if (ball.y_change == 0) {
+                ball.y_change = -1;
+                ball.x_change /= 1.5;
+            }
             ball.x_change *= -1;    
             paddle_collision = false;
         }
@@ -68,7 +84,7 @@ void Game::ball_move() {
             ball.reset();
         }
 
-        if (!(arena_top_bottom_collision || arena_left_collision || arena_right_collision || paddle_collision)) {
+        if (!(arena_top_bottom_collision || arena_left_collision || arena_right_collision || paddle_collision || middle_collision)) {
             ball.x_pos += ball.x_change;
             ball.y_pos += ball.y_change;
         }

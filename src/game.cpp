@@ -97,6 +97,16 @@ void Game::ball_move() {
     
 }
 
+int Game::endGame() { // 1: Player 1, 2: Player 2, 0: Nobody, continue game
+    if (player1.score > 6) {
+        return 1;
+    } else if (player2.score > 6) {
+        return 2;
+    } else {
+        return 0;
+    }
+}
+
 // Reset the game with the ball in the middle and players back to their default location.
 void Game::setup() {    
     drawObjects();
@@ -108,6 +118,11 @@ void Game::run() {
         player1.move();
         player2.move();
         ball_move();
+        if (endGame()) {
+            system("cls");
+            std::cout << "Player " << endGame() << " wins!" << std::endl;
+            break;
+        }
         drawObjects();
     }
 }

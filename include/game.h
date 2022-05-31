@@ -16,6 +16,7 @@ public:
     Game(Window window, Paddle player1, Paddle player2, Ball ball);
 
     void drawObjects();
+    int endGame();
 
     void ball_move();
 

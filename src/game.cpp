@@ -42,12 +42,12 @@ void Game::ball_move() {
     if (ball.ballTimer.ended()) {
         // Detect if the ball hits the middle of the paddle
         bool player1_ball_middle_collision = (ball.x_pos < player1.xValue + 1) && ((ball.y_pos > player1.yTop + 3) && (ball.y_pos < player1.yTop + 6));
-        bool player2_ball_middle_collision = (ball.x_pos > player2.xValue - 2) && ((ball.y_pos > player2.yTop + 3) && (ball.y_pos < player2.yTop + 6));
+        bool player2_ball_middle_collision = (ball.x_pos > player2.xValue - 1) && ((ball.y_pos > player2.yTop + 3) && (ball.y_pos < player2.yTop + 6));
         bool middle_collision = player1_ball_middle_collision || player2_ball_middle_collision;
         
         // Detect if ball hits the paddle
         bool player1_ball_collision = (ball.x_pos < player1.xValue + 1) && ((ball.y_pos < player1.yBottom + 1) && (ball.y_pos > player1.yTop - 1));
-        bool player2_ball_collision = (ball.x_pos > player2.xValue - 2) && ((ball.y_pos < player2.yBottom + 1) && (ball.y_pos > player2.yTop - 1));
+        bool player2_ball_collision = (ball.x_pos > player2.xValue - 1) && ((ball.y_pos < player2.yBottom + 1) && (ball.y_pos > player2.yTop - 1));
         bool paddle_collision = player1_ball_collision || player2_ball_collision;
 
         // Detect if ball hits a side of the arena
@@ -56,8 +56,12 @@ void Game::ball_move() {
         bool arena_right_collision = ball.x_pos >= 198; // Right side collision
 
         if (middle_collision) {
-            ball.y_change = 0;
-            ball.x_change *= -1.5;
+            if (ball.y_change == 0) {
+                ball.x_change *= -1;
+            } else {
+                ball.y_change = 0;
+                ball.x_change *= -1.5;
+            }
             middle_collision = false;
             paddle_collision = false;
         } else if (paddle_collision) {

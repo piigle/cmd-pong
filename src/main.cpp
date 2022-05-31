@@ -8,8 +8,8 @@
 #include <Windows.h>
 
 int main() {
-    Paddle player1(2, 10, 19, 'W', 'S', 100);
-    Paddle player2(199 - 2, 10, 19, VK_UP, VK_DOWN, 100);
+    Paddle player1(4, 10, 19, 'W', 'S', 100);
+    Paddle player2(199 - 4, 10, 19, VK_UP, VK_DOWN, 100);
     Ball ball(100, 24, -2, -1);
     Window window;
     Game game(window, player1, player2, ball);

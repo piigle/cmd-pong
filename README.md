@@ -1,12 +1,8 @@
-# Console Pong
+# CMD Pong
 
 ![Alt Text](/console-pong.gif)
 
-NOTE: This project only functions on Windows operating systems due
-to the use of the Win32 API.
-
-This is one of my first C++ projects I completed so I didn't bother or even
-consider adding support for all platforms.
+NOTE: CMD Pong also runs in Powershell despite the name.
 
 ## Building
 
@@ -18,7 +14,7 @@ Step 1: Check if CMake is installed
 cmake --version
 ```
 Step 2: Generate CMake Project
-I used MinGW to generate my project, but you can use "cmake -G" to see a list of other generators
+I used MinGW to generate my project, but you can use "cmake -G" to see a list of other generators.
 ```
 cmake -G "MinGW Makefiles"
 ```
